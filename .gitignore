@@ -1,0 +1,8 @@
+# Node.js
+node_modules/
+
+# PHP Composer
+vendor/
+.phpunit.result.cache
+
+.DS_Store

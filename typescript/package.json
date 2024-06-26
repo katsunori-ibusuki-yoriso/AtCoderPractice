@@ -1,0 +1,16 @@
+{
+  "name": "atcoder-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx ts-node src/main.test.ts"
+  },
+  "dependencies": {
+    "typescript": "^4.0.0",
+    "@types/node": "^14.0.0",
+    "ts-node": "^9.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

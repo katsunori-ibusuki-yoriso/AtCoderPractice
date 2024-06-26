@@ -1,0 +1,40 @@
+up:
+	docker compose up -d
+
+go-test:
+	@echo "Running Go tests..."
+	docker exec -it atcoder_go sh \
+		-c "go test ."
+
+cpp-test:
+	@echo "Running C++ tests..."
+	docker exec atcoder_cpp sh \
+		-c "cd /usr/src/app && g++ main.cpp test.cpp -o test && ./test"
+
+ts-test:
+	@echo "Running TypeScript tests..."
+	docker exec atcoder_typescript sh \
+		-c "cd /usr/src/app && npm install && npx ts-node src/main.test.ts"
+
+php-test:
+	@echo "Running PHP tests..."
+	docker exec atcoder_php sh \
+		-c "cd /usr/src/app && vendor/bin/phpunit --configuration phpunit.xml"
+
+ps:
+	docker compose ps
+
+build:
+	docker compose build
+
+restart:
+	docker compose restart
+
+stop:
+	docker compose stop
+
+down:
+	docker compose down
+
+clean:
+	docker compose down --volumes --rmi all

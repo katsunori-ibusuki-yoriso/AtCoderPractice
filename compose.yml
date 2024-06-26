@@ -1,0 +1,39 @@
+services:
+  cpp:
+    image: gcc:latest
+    container_name: atcoder_cpp
+    volumes:
+      - ./cpp:/usr/src/app
+      - ./common:/usr/src/common
+    working_dir: /usr/src/app
+    command: ["sleep", "infinity"]
+
+  go:
+    image: golang:latest
+    container_name: atcoder_go
+    volumes:
+      - ./go:/go/src/app
+      - ./common:/go/src/app/common
+    working_dir: /go/src/app
+    command: ["sleep", "infinity"]
+
+  typescript:
+    image: node:18-alpine
+    container_name: atcoder_typescript
+    volumes:
+      - ./typescript:/usr/src/app
+      - ./common:/usr/src/app/common
+    working_dir: /usr/src/app
+    command: ["sleep", "infinity"]
+    environment:
+      - NODE_ENV=development
+
+  php:
+    build:
+      context: ./php
+    container_name: atcoder_php
+    volumes:
+      - ./php:/usr/src/app
+      - ./common:/usr/src/app/common
+    working_dir: /usr/src/app
+    command: ["sleep", "infinity"]
