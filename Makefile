@@ -9,7 +9,8 @@ go-test:
 cpp-test:
 	@echo "Running C++ tests..."
 	docker exec atcoder_cpp sh \
-		-c "cd /usr/src/app && g++ main.cpp test.cpp -o test && ./test"
+		-c "cd /usr/src/app && g++ @compile_flags.txt -DTESTING ./src/main.cpp ./src/main_test.cpp -lgtest -lgtest_main -pthread -o test && ./test"
+
 
 ts-test:
 	@echo "Running TypeScript tests..."

@@ -1,9 +1,10 @@
 services:
   cpp:
-    image: gcc:latest
+    build:
+      context: ./cpp
     container_name: atcoder_cpp
     volumes:
-      - ./cpp:/usr/src/app
+      - ./cpp:/usr/src/app/
       - ./common:/usr/src/common
     working_dir: /usr/src/app
     command: ["sleep", "infinity"]
