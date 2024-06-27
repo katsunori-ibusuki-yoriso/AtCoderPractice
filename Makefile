@@ -11,7 +11,6 @@ cpp-test:
 	docker exec atcoder_cpp sh \
 		-c "cd /usr/src/app && g++ @compile_flags.txt -DTESTING ./src/main.cpp ./src/main_test.cpp -lgtest -lgtest_main -pthread -o test && ./test"
 
-
 ts-test:
 	@echo "Running TypeScript tests..."
 	docker exec atcoder_typescript sh \
@@ -20,7 +19,7 @@ ts-test:
 php-test:
 	@echo "Running PHP tests..."
 	docker exec atcoder_php sh \
-		-c "cd /usr/src/app && vendor/bin/phpunit --configuration phpunit.xml"
+		-c "cd /usr/src/app && UNIT_TEST=1 vendor/bin/phpunit --configuration phpunit.xml"
 
 rust-test:
 	@echo "Running Rust tests..."
