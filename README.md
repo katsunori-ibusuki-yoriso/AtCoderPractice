@@ -25,7 +25,7 @@ AtCoderPractice
 
 ## 環境構築
 ```bash
-Make up
+make up
 ```
 
 ## テスト実行
