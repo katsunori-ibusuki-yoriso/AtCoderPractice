@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -14,16 +15,6 @@ var (
 	r           *os.File
 	w           *os.File
 )
-
-func inputFile(name string) string {
-	const INPUT_FILE_PATH = "./common/input/"
-	return INPUT_FILE_PATH + name
-}
-
-func outputFile(name string) string {
-	const OUTPUT_FILE_PATH = "./common/output/"
-	return OUTPUT_FILE_PATH + name
-}
 
 func initIO(inputFile, outputFile string) ([]byte, []byte, error) {
 	// 入力データを読み込む
@@ -78,24 +69,39 @@ func closeIO() ([]byte, error) {
 }
 
 func Test_main(t *testing.T) {
-	inputFile := inputFile("test1.in")
-	outputFile := outputFile("test1.out")
+	inputDir := "./common/input/A001"
+	outputDir := "./common/output/A001"
+	err := filepath.Walk(inputDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
 
-	_, expectedOutput, err := initIO(inputFile, outputFile)
+		if !info.IsDir() && filepath.Ext(path) == ".in" {
+			inputFile := path
+			outputFile := filepath.Join(outputDir, info.Name()[:len(info.Name())-len(filepath.Ext(info.Name()))]+".out")
+
+			_, expectedOutput, err := initIO(inputFile, outputFile)
+			if err != nil {
+				t.Fatalf("Failed to initialize IO: %s", err)
+			}
+
+			// プログラムを実行する
+			main()
+
+			actualOutput, err := closeIO()
+			if err != nil {
+				t.Fatalf("Failed to close IO: %s", err)
+			}
+
+			// 出力が期待されるものと一致するか確認する
+			if string(actualOutput) != string(expectedOutput) {
+				t.Errorf("Test failed for file: %s\nExpected output:\n%s\nBut got:\n%s", inputFile, expectedOutput, actualOutput)
+			}
+		}
+		return nil
+	})
+
 	if err != nil {
-		t.Fatalf("Failed to initialize IO: %s", err)
-	}
-
-	// プログラムを実行する
-	main()
-
-	actualOutput, err := closeIO()
-	if err != nil {
-		t.Fatalf("Failed to close IO: %s", err)
-	}
-
-	// 出力が期待されるものと一致するか確認する
-	if string(actualOutput) != string(expectedOutput) {
-		t.Errorf("Expected output:\n%s\nBut got:\n%s", expectedOutput, actualOutput)
+		t.Fatalf("Error walking the path %q: %v\n", inputDir, err)
 	}
 }
