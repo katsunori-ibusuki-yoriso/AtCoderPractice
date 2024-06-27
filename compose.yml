@@ -19,7 +19,8 @@ services:
     command: ["sleep", "infinity"]
 
   typescript:
-    image: node:18-alpine
+    build:
+      context: ./typescript
     container_name: atcoder_typescript
     volumes:
       - ./typescript:/usr/src/app

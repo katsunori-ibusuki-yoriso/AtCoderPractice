@@ -21,7 +21,7 @@ fn test_process_input() {
         if path.is_file() {
             let file_name = path.file_name().unwrap().to_str().unwrap();
             let input_file = File::open(&path).expect("Failed to open input file");
-            let output_file_name = file_name.replace(".input", ".output");
+            let output_file_name = file_name.replace(".in", ".out");
             let output_file_path = Path::new(output_dir).join(output_file_name);
             let expected_output = read_to_string(&output_file_path);
 
