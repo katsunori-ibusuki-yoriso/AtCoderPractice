@@ -2,11 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once 'main.php';
-
 class MainTest extends TestCase
 {
     /**
+     * @test
      * @dataProvider inputOutputProvider
      */
     public function testProcessInput($inputFile, $outputFile)
@@ -15,21 +14,24 @@ class MainTest extends TestCase
         $expectedOutput = file_get_contents($outputFile);
 
         // PHPの内部で標準入力をファイルから読み込むストリームを作成
-        $stream = fopen('php://memory', 'r+');
+        $stream = fopen('php://temp', 'r+');
         fwrite($stream, $inputData);
         rewind($stream);
 
-        // 標準入力を差し替える
-        global $stdin;
-        $stdin = $stream;
+        // 標準入力を一時的に置き換える
+        $originalStdin = fopen('php://stdin', 'r');
+        $GLOBALS['STDIN'] = $stream;
 
-        // 関数を実行して出力をキャプチャ
+        // 出力をキャプチャする
         ob_start();
-        $actualOutput = processInput();
+        processInput();
         $actualOutput = ob_get_clean();
 
+        // 標準入力を元に戻す
+        fclose($GLOBALS['STDIN']);
+        $GLOBALS['STDIN'] = $originalStdin;
         // アサーションの実行
-        $this->assertSame(trim($expectedOutput), trim($actualOutput));
+        $this->assertSame($expectedOutput, $actualOutput);
     }
 
     public function inputOutputProvider()
