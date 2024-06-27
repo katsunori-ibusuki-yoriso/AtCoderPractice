@@ -1,10 +1,11 @@
-#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
 
 void processInput() {
   int a, b, c;
-  std::string s;
+  string s;
 
-  std::cin >> a;
+  cin >> a;
   // 以下を埋めてね
 }
 

@@ -15,9 +15,3 @@ RUN git clone https://github.com/google/googletest.git /usr/src/googletest \
     && make install
 
 WORKDIR /usr/src/app
-
-# 必要なファイルとディレクトリをコピー
-COPY src /usr/src/app/src
-COPY common /usr/src/app/common
-COPY compile_flags.txt /usr/src/app
-
