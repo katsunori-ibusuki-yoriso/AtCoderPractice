@@ -3,10 +3,10 @@ import * as fs from 'fs';
 export function processInput(input: string): string {
   const lines = input.split('\n');
   const a = parseInt(lines[0].trim());
-  const [b, c] = lines[1].trim().split(' ').map(Number);
-  const s = lines[2].trim();
-  const sum = a + b + c;
-  return `${sum} ${s}`;
+  // 以下を埋めてね
+
+  // 結果をreturnしてください
+  // return ;
 }
 
 if (require.main === module) {

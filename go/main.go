@@ -15,15 +15,7 @@ func processInput(input io.Reader, output io.Writer) {
 	scanner.Scan()
 	a, _ := strconv.Atoi(scanner.Text())
 
-	scanner.Scan()
-	bc := strings.Split(scanner.Text(), " ")
-	b, _ := strconv.Atoi(bc[0])
-	c, _ := strconv.Atoi(bc[1])
-
-	scanner.Scan()
-	s := scanner.Text()
-
-	fmt.Fprintf(output, "%d %s\n", a+b+c, s)
+	// 以下を埋めてね
 }
 
 func main() {
