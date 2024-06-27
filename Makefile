@@ -21,6 +21,11 @@ php-test:
 	docker exec atcoder_php sh \
 		-c "cd /usr/src/app && vendor/bin/phpunit --configuration phpunit.xml"
 
+rust-test:
+	@echo "Running Rust tests..."
+	docker exec atcoder_rust bash \
+		-c "cd /usr/src/app && cargo test"
+
 ps:
 	docker compose ps
 

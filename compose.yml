@@ -37,3 +37,13 @@ services:
       - ./common:/usr/src/app/common
     working_dir: /usr/src/app
     command: ["sleep", "infinity"]
+
+  rust:
+    build:
+      context: ./rust
+    container_name: atcoder_rust
+    volumes:
+      - ./rust:/usr/src/app
+      - ./common:/usr/src/app/common
+    working_dir: /usr/src/app
+    command: ["sleep", "infinity"]
